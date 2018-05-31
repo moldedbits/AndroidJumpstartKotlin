@@ -6,18 +6,61 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.moldedbits.android.R
+import kotlinx.android.synthetic.main.fragment_themed_dialog.*
 
 /**
  * Created by viveksingh
  * on 18/01/16.
  */
 class ThemedInfoDialog : DialogFragment() {
+
+    var okListener: View.OnClickListener? = null
+
+    var button: Boolean = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Applying the theme
+        isCancelable = true
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_themed_dialog, container, false)
+        ButterKnife.bind(this, rootView)
+        dialog.setCanceledOnTouchOutside(true)
+        val args = arguments
+        tv_message!!.text = args!!.getString(KEY_MESSAGE)
+        tv_title!!.text = args.getString(KEY_TITLE)
+        btn_no!!.visibility = View.GONE
+        button = args.getBoolean(KEY_SHOW_CANCEL_BUTTON)
+        if (button) {
+            btn_no!!.visibility = View.VISIBLE
+        }
+
+        if (TextUtils.isEmpty(args.getString(KEY_POSITIVE_BUTTON_TEXT))) {
+            btn_ok!!.text = getString(android.R.string.ok)
+        } else {
+            btn_ok!!.text = args.getString(KEY_POSITIVE_BUTTON_TEXT)
+        }
+
+        return rootView
+    }
+
+    @OnClick(R.id.btn_ok)
+    internal fun onClickOk(view: View) {
+        dismiss()
+        if (okListener != null) {
+            okListener!!.onClick(view)
+        }
+    }
+
+    @OnClick(R.id.btn_no)
+    fun onClickCancel() {
+        dismiss()
+    }
 
     companion object {
 
@@ -47,61 +90,5 @@ class ThemedInfoDialog : DialogFragment() {
 
             return args
         }
-    }
-
-    var okListener: View.OnClickListener? = null
-
-    @BindView(R.id.tv_title)
-    internal var titleTv: TextView? = null
-
-    @BindView(R.id.tv_message)
-    internal var messageTv: TextView? = null
-
-    @BindView(R.id.btn_ok)
-    internal var okButton: Button? = null
-
-    @BindView(R.id.btn_no)
-    internal var cancelButton: Button? = null
-    internal var button: Boolean = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Applying the theme
-        isCancelable = true
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_themed_dialog, container, false)
-        ButterKnife.bind(this, rootView)
-        dialog.setCanceledOnTouchOutside(true)
-        val args = arguments
-        messageTv!!.text = args!!.getString(KEY_MESSAGE)
-        titleTv!!.text = args.getString(KEY_TITLE)
-        cancelButton!!.visibility = View.GONE
-        button = args.getBoolean(KEY_SHOW_CANCEL_BUTTON)
-        if (button) {
-            cancelButton!!.visibility = View.VISIBLE
-        }
-
-        if (TextUtils.isEmpty(args.getString(KEY_POSITIVE_BUTTON_TEXT))) {
-            okButton!!.text = getString(android.R.string.ok)
-        } else {
-            okButton!!.text = args.getString(KEY_POSITIVE_BUTTON_TEXT)
-        }
-
-        return rootView
-    }
-
-    @OnClick(R.id.btn_ok)
-    internal fun onClickOk(view: View) {
-        dismiss()
-        if (okListener != null) {
-            okListener!!.onClick(view)
-        }
-    }
-
-    @OnClick(R.id.btn_no)
-    fun onClickCancel() {
-        dismiss()
     }
 }

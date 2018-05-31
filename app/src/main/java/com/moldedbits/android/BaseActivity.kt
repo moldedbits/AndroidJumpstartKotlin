@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.FrameLayout
-import com.moldedbits.android.api.ApiService
 import com.moldedbits.android.dialogs.LoadingDialog
 import com.moldedbits.android.utils.fragmenttransactionhandler.FragmentTransactionHandler
-import javax.inject.Inject
 
 
 /**
@@ -16,17 +14,13 @@ import javax.inject.Inject
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    @Inject
-    internal var apiService: ApiService? = null
-
     private var contentFrame: FrameLayout? = null
+
     protected lateinit var handler: FragmentTransactionHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_base)
-
-        BaseApplication.instance.apiComponent.inject(this)
 
         contentFrame = findViewById(R.id.base_container)
         handler = FragmentTransactionHandler()
