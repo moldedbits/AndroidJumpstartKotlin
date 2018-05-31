@@ -165,10 +165,6 @@ dependencies {
     // Timber for logging
     implementation 'com.jakewharton.timber:timber:4.6.0'
 
-    // Butterknife for view injection
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
-
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     // Dagger 2
     // Dagger 2 dependencies
