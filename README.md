@@ -1,4 +1,4 @@
-## Android Jumpstart
+## Android Jumpstart Kotlin
 
 [![Build Status](http://jenkins.moldedbits.com/buildStatus/icon?job=Android%20Jumpstart)](http://jenkins.moldedbits.com/job/Android%20Jumpstart/)
 
@@ -14,9 +14,7 @@ work on share the same boilerplate code, including
 Jumpstart takes care of all this, and more. Jumpstart adds support for many commonly used libraries,
   * [RxJava 2.0](https://github.com/ReactiveX/RxJava)
   * [Retrofit](http://square.github.io/retrofit/)
-  * [Lombok](https://projectlombok.org/)
   * [Timber](https://github.com/JakeWharton/timber)
-  * [ButterKnife](https://jakewharton.github.io/butterknife/)
 
 ### Setting up
 
@@ -33,7 +31,7 @@ Make your activities extend one of `BaseActivity`, `BaseToolbarActivity` or `Bas
 to the `APIService` which is injected into the BaseActivities.
 
 ```java
-apiService.getSomeResource();
+apiService.getSomeResource()
 ```
 
 #### Setting up the Navigation Drawer
@@ -52,10 +50,10 @@ utility methods to show and hide progress dialogs.
 
 ```java
 // Show loading dialog
-showLoadingDialog(R.string.loading_message);
+showLoadingDialog(R.string.loading_message)
 
 // Hide loading dialog
-cancelLoadingDialog();
+cancelLoadingDialog()
 ```
 
 #### LoadingDialog
@@ -63,7 +61,7 @@ A very common requirement in an app is to show a loading dialog. When you just n
 simple dialog with a title and a message, use the LoadingDialog class as
 
 ```java
-LoadingDialog.newInstance(title, description, showCancelButton);
+LoadingDialog.newInstance(title, description, showCancelButton)
 ```
 
 #### APIProvider
